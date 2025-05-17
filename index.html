@@ -1,102 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Developer Studio Tampa</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
     body {
       margin: 0;
       font-family: 'Inter', sans-serif;
-      background: #0e0e10;
-      color: #f2f2f2;
+      background-color: #0d0d0d;
+      color: #e5e5e5;
     }
     header {
-      background: linear-gradient(to bottom, #0e0e10 30%, transparent), url('https://frshcdn.com/images/tampa-banner.jpg') no-repeat center center/cover;
-      height: 90vh;
+      background: url('https://frshcdn.com/images/tampa-banner.jpg') no-repeat center center/cover;
+      height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
-      padding: 0 1rem;
+      position: relative;
+    }
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: rgba(0, 0, 0, 0.6);
+    }
+    header h1, header p {
+      position: relative;
+      z-index: 2;
+      margin: 0;
     }
     header h1 {
       font-size: 3rem;
-      font-weight: 800;
       color: #00b4d8;
-      text-shadow: 0 0 10px rgba(0, 180, 216, 0.3);
+      font-weight: 800;
+      text-shadow: 0 0 10px #00b4d8;
     }
     header p {
       font-size: 1.2rem;
-      color: #ddd;
-      max-width: 600px;
+      color: #ccc;
+      margin-top: 0.5rem;
     }
-    .intro {
+    section.intro {
+      max-width: 960px;
+      margin: 2rem auto;
+      padding: 0 2rem;
       text-align: center;
-      padding: 2rem 1rem;
     }
-    .intro h2 {
-      color: #00b4d8;
+    section.intro h2 {
       font-size: 2rem;
+      color: #00b4d8;
       margin-bottom: 0.5rem;
     }
-    .intro p {
-      color: #aaa;
-      max-width: 700px;
-      margin: 0 auto;
+    section.intro p {
+      font-size: 1rem;
+      color: #ccc;
+      line-height: 1.6;
     }
-    .grid {
+    .container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.5rem;
-      padding: 2rem;
-      max-width: 1200px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      padding: 3rem;
+      max-width: 1440px;
       margin: auto;
     }
-    .card {
-      background: #1a1a1d;
+    .product {
+      background: #121212;
+      border: 1px solid #1e1e1e;
       border-radius: 12px;
-      overflow: hidden;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      border: 1px solid #2c2c30;
+      padding: 1.2rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 0 transparent;
     }
-    .card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 0 20px rgba(0, 180, 216, 0.2);
+    .product:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 15px rgba(0, 180, 216, 0.2);
     }
-    .card img {
+    .product img {
       width: 100%;
-      height: 200px;
+      border-radius: 8px;
       object-fit: cover;
+      height: 200px;
     }
-    .card .content {
-      padding: 1rem;
-    }
-    .card h3 {
-      font-size: 1rem;
-      margin: 0 0 0.5rem;
+    .product h3 {
+      font-size: 1.1rem;
+      margin: 0.75rem 0 0.5rem;
       color: #fff;
     }
-    .card a {
-      color: #00b4d8;
+    .product a {
       text-decoration: none;
+      color: #00b4d8;
       font-weight: 600;
-      font-size: 0.9rem;
     }
     footer {
       text-align: center;
       padding: 2rem;
+      background-color: #000;
+      color: #999;
       font-size: 0.9rem;
-      color: #666;
-      border-top: 1px solid #222;
     }
     footer a {
       color: #00b4d8;
-      margin: 0 0.5rem;
       text-decoration: none;
+      margin: 0 0.5rem;
     }
   </style>
 </head>
@@ -108,60 +121,10 @@
 
   <section class="intro">
     <h2>Build a Setup Like Mine</h2>
-    <p>No sponsors. No fluff. Just my real setup and the gear I use every day. If it’s here, it earns its keep.</p>
+    <p>No sponsors. No filler. Just my real setup and the gear I use daily. If it’s here, I stand on it.</p>
   </section>
 
-  <section class="grid">
-    <div class="card">
-      <img src="https://m.media-amazon.com/images/I/81w3i3r1sDL._AC_SL1500_.jpg" alt="Sony A7S II" />
-      <div class="content">
-        <h3>Sony Alpha A7S II</h3>
-        <a href="https://www.amazon.com/dp/B016Q0ZASY?tag=devstudiotampa20" target="_blank">View on Amazon</a>
-      </div>
-    </div>
-    <div class="card">
-      <img src="https://m.media-amazon.com/images/I/61mH6nLfdfL._AC_SL1500_.jpg" alt="Sony 28 70mm Lens" />
-      <div class="content">
-        <h3>Sony 28 70mm OSS Lens</h3>
-        <a href="https://www.amazon.com/dp/B00HNJWSH4?tag=devstudiotampa20" target="_blank">View on Amazon</a>
-      </div>
-    </div>
-    <div class="card">
-      <img src="https://m.media-amazon.com/images/I/81D5sbEa2xL._AC_SL1500_.jpg" alt="Logitech G923" />
-      <div class="content">
-        <h3>Logitech G923 Racing Wheel</h3>
-        <a href="https://www.amazon.com/dp/B08DJ1Y7PY?tag=devstudiotampa20" target="_blank">View on Amazon</a>
-      </div>
-    </div>
-    <div class="card">
-      <img src="https://m.media-amazon.com/images/I/61RbCUzKIEL._AC_SL1500_.jpg" alt="Stream Deck" />
-      <div class="content">
-        <h3>Elgato Stream Deck MK2</h3>
-        <a href="https://www.amazon.com/dp/B0973711YX?tag=devstudiotampa20" target="_blank">View on Amazon</a>
-      </div>
-    </div>
-    <div class="card">
-      <img src="https://m.media-amazon.com/images/I/61pKggDKm+L._AC_SL1500_.jpg" alt="Quadcast Mic" />
-      <div class="content">
-        <h3>HyperX QuadCast USB Mic</h3>
-        <a href="https://www.amazon.com/dp/B07NZZZ746?tag=devstudiotampa20" target="_blank">View on Amazon</a>
-      </div>
-    </div>
-    <div class="card">
-      <img src="https://m.media-amazon.com/images/I/71PaN8D+tdL._AC_SL1500_.jpg" alt="Legion Tower 5i" />
-      <div class="content">
-        <h3>Lenovo Legion Tower 5i</h3>
-        <a href="https://www.amazon.com/dp/B0BS5SV43J?tag=devstudiotampa20" target="_blank">View on Amazon</a>
-      </div>
-    </div>
-    <div class="card">
-      <img src="https://m.media-amazon.com/images/I/71pnMBqSIPL._AC_SL1500_.jpg" alt="Odyssey G5" />
-      <div class="content">
-        <h3>Samsung Odyssey G5 32"</h3>
-        <a href="https://www.amazon.com/dp/B08LM4Z8DY?tag=devstudiotampa20" target="_blank">View on Amazon</a>
-      </div>
-    </div>
-  </section>
+  <main class="container" id="product-grid"></main>
 
   <footer>
     <p>
@@ -171,5 +134,57 @@
     </p>
     <p>&copy; 2025 Developer Studio Tampa. All rights reserved.</p>
   </footer>
+
+  <script>
+    const products = [
+      {
+        title: "Sony Alpha A7S II",
+        img: "https://m.media-amazon.com/images/I/81w3i3r1sDL._AC_SL1500_.jpg",
+        link: "https://www.amazon.com/dp/B016Q0ZASY?tag=devstudiotampa20"
+      },
+      {
+        title: "Sony 28 70mm OSS Lens",
+        img: "https://m.media-amazon.com/images/I/61mH6nLfdfL._AC_SL1500_.jpg",
+        link: "https://www.amazon.com/dp/B00HNJWSH4?tag=devstudiotampa20"
+      },
+      {
+        title: "Logitech G923 Racing Wheel",
+        img: "https://m.media-amazon.com/images/I/81D5sbEa2xL._AC_SL1500_.jpg",
+        link: "https://www.amazon.com/dp/B08DJ1Y7PY?tag=devstudiotampa20"
+      },
+      {
+        title: "Elgato Stream Deck MK2",
+        img: "https://m.media-amazon.com/images/I/61RbCUzKIEL._AC_SL1500_.jpg",
+        link: "https://www.amazon.com/dp/B0973711YX?tag=devstudiotampa20"
+      },
+      {
+        title: "HyperX QuadCast USB Mic",
+        img: "https://m.media-amazon.com/images/I/61pKggDKm+L._AC_SL1500_.jpg",
+        link: "https://www.amazon.com/dp/B07NZZZ746?tag=devstudiotampa20"
+      },
+      {
+        title: "Lenovo Legion Tower 5i",
+        img: "https://m.media-amazon.com/images/I/71PaN8D+tdL._AC_SL1500_.jpg",
+        link: "https://www.amazon.com/dp/B0BS5SV43J?tag=devstudiotampa20"
+      },
+      {
+        title: "Samsung Odyssey G5 32",
+        img: "https://m.media-amazon.com/images/I/71pnMBqSIPL._AC_SL1500_.jpg",
+        link: "https://www.amazon.com/dp/B08LM4Z8DY?tag=devstudiotampa20"
+      }
+    ];
+
+    const grid = document.getElementById("product-grid");
+    products.forEach(p => {
+      const card = document.createElement("div");
+      card.className = "product";
+      card.innerHTML = `
+        <img src="${p.img}" alt="${p.title}" />
+        <h3>${p.title}</h3>
+        <a href="${p.link}" target="_blank">View on Amazon</a>
+      `;
+      grid.appendChild(card);
+    });
+  </script>
 </body>
 </html>

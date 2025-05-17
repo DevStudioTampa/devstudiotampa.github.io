@@ -6,6 +6,9 @@
   <title>Developer Studio Tampa</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
+    * {
+      box-sizing: border-box;
+    }
     body {
       margin: 0;
       font-family: 'Inter', sans-serif;
@@ -62,33 +65,36 @@
     }
     .container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 2rem;
       padding: 3rem;
+      max-width: 1440px;
+      margin: auto;
     }
     .product {
-      background: rgba(255, 255, 255, 0.05);
+      background: #121212;
+      border: 1px solid #1e1e1e;
       border-radius: 12px;
-      padding: 1rem;
-      backdrop-filter: blur(8px);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      padding: 1.2rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 0 transparent;
     }
     .product:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 0 10px rgba(0, 180, 216, 0.4);
+      transform: translateY(-5px);
+      box-shadow: 0 0 15px rgba(0, 180, 216, 0.2);
     }
     .product img {
       width: 100%;
       border-radius: 8px;
+      object-fit: cover;
+      height: 200px;
     }
     .product h3 {
-      margin-top: 0.75rem;
       font-size: 1.1rem;
+      margin: 0.75rem 0 0.5rem;
       color: #fff;
     }
     .product a {
-      display: inline-block;
-      margin-top: 0.5rem;
       text-decoration: none;
       color: #00b4d8;
       font-weight: 600;
@@ -114,8 +120,8 @@
   </header>
 
   <section class="intro">
-    <h2>Handpicked Tools. No Fluff.</h2>
-    <p>Everything on this page was chosen because it works. No fake hype, no sponsored BS — just real gear that gets the job done. Whether you're building your setup or leveling up your workflow, these are the pieces I’d recommend to anyone trying to stay sharp without going broke.</p>
+    <h2>My Favorite Gear Right Now</h2>
+    <p>This is the type of tech that punches way above its price tag. Everything here is something I’d actually use — no fluff, no filler, just clean tools that slap. You want solid value? Start here.</p>
   </section>
 
   <main class="container" id="product-grid"></main>
@@ -132,34 +138,44 @@
   <script>
     const products = [
       {
-        title: "HyperX Cloud II Headset",
+        title: "HyperX Cloud II Gaming Headset",
         img: "https://m.media-amazon.com/images/I/71I0Vg9Gq-L._AC_SL1500_.jpg",
-        link: "#"
+        link: "https://www.amazon.com/dp/B00SAYCVTQ"
       },
       {
         title: "Logitech G305 Wireless Mouse",
         img: "https://m.media-amazon.com/images/I/61FzL8D2XkL._AC_SL1500_.jpg",
-        link: "#"
+        link: "https://www.amazon.com/dp/B07CMS5Q6P"
       },
       {
-        title: "K380 Wireless Keyboard",
+        title: "K380 Compact Wireless Keyboard",
         img: "https://m.media-amazon.com/images/I/61cLqgZ9GZL._AC_SL1500_.jpg",
-        link: "#"
+        link: "https://www.amazon.com/dp/B0148NPH9I"
       },
       {
-        title: "1080p Budget Webcam",
-        img: "https://m.media-amazon.com/images/I/61MuJSoWunL._AC_SL1500_.jpg",
-        link: "#"
-      },
-      {
-        title: "BOYATA Laptop Stand",
+        title: "BOYATA Adjustable Laptop Stand",
         img: "https://m.media-amazon.com/images/I/71rWbGZ7j-L._AC_SL1500_.jpg",
-        link: "#"
+        link: "https://www.amazon.com/dp/B07D74DT3S"
       },
       {
-        title: "Redragon K552 Mechanical Keyboard",
+        title: "1080p Budget Streaming Webcam",
+        img: "https://m.media-amazon.com/images/I/61MuJSoWunL._AC_SL1500_.jpg",
+        link: "https://www.amazon.com/dp/B08CVTWGZK"
+      },
+      {
+        title: "Redragon K552 Mechanical Gaming Keyboard",
         img: "https://m.media-amazon.com/images/I/81NpsJM+YlL._AC_SL1500_.jpg",
-        link: "#"
+        link: "https://www.amazon.com/dp/B016MAK38U"
+      },
+      {
+        title: "Anker USB-C 7-in-1 Hub",
+        img: "https://m.media-amazon.com/images/I/61OomXWgPqL._AC_SL1500_.jpg",
+        link: "https://www.amazon.com/dp/B07Y5V4LBM"
+      },
+      {
+        title: "Razer Gigantus v2 XXL Mouse Pad",
+        img: "https://m.media-amazon.com/images/I/61v8iLlnpQL._AC_SL1500_.jpg",
+        link: "https://www.amazon.com/dp/B088F73LJ8"
       }
     ];
 

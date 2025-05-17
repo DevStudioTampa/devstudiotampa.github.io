@@ -1,25 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Developer Studio Tampa</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #111;
+      font-family: 'Inter', sans-serif;
+      background-color: #0d0d0d;
       color: #e5e5e5;
     }
     header {
-      background: url('https://raw.githubusercontent.com/ThisIsFRSH/website-assets/main/tampa-night.jpg') no-repeat center center/cover;
-      height: 60vh;
+      background: url('https://cdn.thisisfrsh.xyz/tampa-banner.jpg') no-repeat center center/cover;
+      height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      position: relative;
       text-align: center;
+      position: relative;
     }
     header::before {
       content: '';
@@ -29,36 +30,56 @@
     }
     header h1, header p {
       position: relative;
+      z-index: 2;
       margin: 0;
-      z-index: 1;
     }
     header h1 {
-      font-size: 2.5rem;
+      font-size: 3rem;
       color: #00b4d8;
+      font-weight: 800;
+      text-shadow: 0 0 10px #00b4d8;
     }
     header p {
-      font-size: 1.1rem;
-      color: #ddd;
+      font-size: 1.2rem;
+      color: #ccc;
       margin-top: 0.5rem;
+    }
+    section.intro {
+      max-width: 960px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+      text-align: center;
+    }
+    section.intro h2 {
+      font-size: 2rem;
+      color: #00b4d8;
+      margin-bottom: 0.5rem;
+    }
+    section.intro p {
+      font-size: 1rem;
+      color: #ccc;
+      line-height: 1.6;
     }
     .container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-      padding: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      padding: 3rem;
     }
     .product {
-      background-color: #1a1a1a;
-      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
       padding: 1rem;
-      transition: transform 0.2s ease;
+      backdrop-filter: blur(8px);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     .product:hover {
-      transform: translateY(-5px);
+      transform: translateY(-6px);
+      box-shadow: 0 0 10px rgba(0, 180, 216, 0.4);
     }
     .product img {
       width: 100%;
-      border-radius: 4px;
+      border-radius: 8px;
     }
     .product h3 {
       margin-top: 0.75rem;
@@ -70,7 +91,19 @@
       margin-top: 0.5rem;
       text-decoration: none;
       color: #00b4d8;
-      font-weight: bold;
+      font-weight: 600;
+    }
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background-color: #000;
+      color: #999;
+      font-size: 0.9rem;
+    }
+    footer a {
+      color: #00b4d8;
+      text-decoration: none;
+      margin: 0 0.5rem;
     }
   </style>
 </head>
@@ -80,9 +113,21 @@
     <p>Budget Tech Gear That Actually Hits</p>
   </header>
 
-  <main class="container" id="product-grid">
-    <!-- Products will go here -->
-  </main>
+  <section class="intro">
+    <h2>Handpicked Tools. No Fluff.</h2>
+    <p>Everything on this page was chosen because it works. No fake hype, no sponsored BS — just real gear that gets the job done. Whether you're building your setup or leveling up your workflow, these are the pieces I’d recommend to anyone trying to stay sharp without going broke.</p>
+  </section>
+
+  <main class="container" id="product-grid"></main>
+
+  <footer>
+    <p>
+      <a href="https://www.instagram.com/thisisfrsh" target="_blank">Instagram</a> |
+      <a href="https://www.youtube.com/@ThisIsFRSH" target="_blank">YouTube</a> |
+      <a href="mailto:devstudiotampa@gmail.com">Email</a>
+    </p>
+    <p>&copy; 2025 Developer Studio Tampa. All rights reserved.</p>
+  </footer>
 
   <script>
     const products = [
@@ -109,6 +154,11 @@
       {
         title: "BOYATA Laptop Stand",
         img: "https://m.media-amazon.com/images/I/71rWbGZ7j-L._AC_SL1500_.jpg",
+        link: "#"
+      },
+      {
+        title: "Redragon K552 Mechanical Keyboard",
+        img: "https://m.media-amazon.com/images/I/81NpsJM+YlL._AC_SL1500_.jpg",
         link: "#"
       }
     ];

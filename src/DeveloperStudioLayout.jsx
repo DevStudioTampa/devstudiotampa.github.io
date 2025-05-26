@@ -10,20 +10,20 @@ export default function DeveloperStudioLayout() {
         </p>
       </header>
 
-      <section style={{ display: \"grid\", gridTemplateColumns: \"repeat(auto-fit, minmax(280px, 1fr))\", gap: \"1.5rem\" }}>
-        {[\"Photography\", \"Consulting\", \"Creative Services\"].map((title, i) => (
-          <div key={i} style={{ background: \"#1e293b\", padding: \"1rem\", borderRadius: \"0.5rem\" }}>
-            <h2 style={{ fontSize: \"1.5rem\", color: \"#93c5fd\" }}>{title}</h2>
+      <section style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.5rem" }}>
+        {["Photography", "Consulting", "Creative Services"].map((title, i) => (
+          <div key={i} style={{ background: "#1e293b", padding: "1rem", borderRadius: "0.5rem" }}>
+            <h2 style={{ fontSize: "1.5rem", color: "#93c5fd" }}>{title}</h2>
             <p>
-              {title === \"Photography\" && \"Automotive, event, and street photography with a cinematic edge.\"}
-              {title === \"Consulting\" && \"Tech and media advice that cuts through the noise.\"}
-              {title === \"Creative Services\" && \"Visual storytelling and branded content that actually connects.\"}
+              {title === "Photography" && "Automotive, event, and street photography with a cinematic edge."}
+              {title === "Consulting" && "Tech and media advice that cuts through the noise."}
+              {title === "Creative Services" && "Visual storytelling and branded content that actually connects."}
             </p>
           </div>
         ))}
       </section>
 
-      <footer style={{ textAlign: \"center\", marginTop: \"3rem\", color: \"#64748b\", fontSize: \"0.875rem\" }}>
+      <footer style={{ textAlign: "center", marginTop: "3rem", color: "#64748b", fontSize: "0.875rem" }}>
         &copy; {new Date().getFullYear()} Developer Studio Tampa. All rights reserved.
       </footer>
     </main>

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { auth } from "./firebaseConfig"; // ✅ pull the initialized auth from config
 
 export default function Login() {
   const [isRegistering, setIsRegistering] = useState(false);
@@ -8,16 +9,16 @@ export default function Login() {
   const [displayName, setDisplayName] = useState("");
   const [error, setError] = useState("");
 
-  const auth = getAuth();
-
   const handleAuth = async (e) => {
     e.preventDefault();
     try {
       if (isRegistering) {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         await updateProfile(userCredential.user, { displayName });
+        alert("Registration successful");
       } else {
         await signInWithEmailAndPassword(auth, email, password);
+        alert("Login successful");
       }
     } catch (err) {
       setError(err.message);

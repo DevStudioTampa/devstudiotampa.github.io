@@ -7,7 +7,7 @@ const PROJECT_LABELS = {
   automotive: 'Automotive portraits + private spaces',
   events: 'Events + venues',
   commercial: 'Commercial content library',
-  partnership: 'Ongoing partnership',
+  partnership: 'Ongoing production partnership',
   other: 'Other / not sure yet'
 };
 const CADENCE_LABELS = {
@@ -51,7 +51,7 @@ export function validateInquiry(input) {
   if (!/^[0-9a-f-]{36}$/i.test(inquiry.submissionId)) errors.submissionId = 'Refresh the page and try again.';
   if (inquiry.name.length < 2) errors.name = 'Enter your full name.';
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(inquiry.email)) errors.email = 'Enter a valid email address.';
-  if (!PROJECT_TYPES.has(inquiry.projectType)) errors.projectType = 'Choose a project type.';
+  if (!PROJECT_TYPES.has(inquiry.projectType)) errors.projectType = 'Choose what you need.';
   if (!CADENCES.has(inquiry.cadence)) errors.cadence = 'Choose how often you may need the work.';
   if (!BUDGET_RANGES.has(inquiry.budgetRange)) errors.budgetRange = 'Choose a listed budget range.';
   if (inquiry.projectDate && !/^\d{4}-\d{2}-\d{2}$/.test(inquiry.projectDate)) errors.projectDate = 'Enter a valid date.';

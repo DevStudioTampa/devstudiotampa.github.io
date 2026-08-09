@@ -38,3 +38,38 @@ img,picture,video,svg{max-width:100%}
   .menu-toggle{flex:0 0 auto;padding:.55rem .65rem}
   .hero__kicker,.hero__title>p{font-size:.58rem}
 }
+
+/* Linked portfolio projects */
+.project__link{display:block}
+.project__link h3:after{content:"↗";display:inline-block;margin-left:.55rem;font-family:'DM Mono',monospace;font-size:.8em;transition:transform .2s var(--ease-out)}
+.project__link:hover h3:after{transform:translate(.18rem,-.18rem)}
+
+/* Automotive collection */
+.portfolio-page{background:var(--ink);color:var(--cream)}
+.portfolio-hero{padding:clamp(5rem,10vw,10rem) var(--pad);border-bottom:1px solid #444}
+.portfolio-hero>.eyebrow{margin:0 0 clamp(3rem,6vw,6rem)}
+.portfolio-hero h1{max-width:12ch;margin:0;font:400 clamp(4rem,10vw,10rem)/.75 Inter,sans-serif;letter-spacing:-.075em;text-transform:uppercase}
+.portfolio-hero h1 em{font-family:'Instrument Serif',serif;font-weight:400}
+.portfolio-collection{background:var(--cream);color:var(--ink)}
+.photo-set{padding:clamp(5rem,10vw,10rem) var(--pad);border-bottom:1px solid var(--line)}
+.set-heading{border-top:1px solid var(--line);padding-top:1rem;margin-bottom:clamp(3rem,6vw,6rem)}
+.set-heading h2{margin:0;font:500 clamp(1.8rem,3.2vw,3.4rem)/1 Inter,sans-serif;letter-spacing:-.045em;text-transform:uppercase}
+.set-gallery{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:clamp(2rem,4vw,5rem) clamp(1.5rem,3vw,3rem)}
+.set-shot{grid-column:span 6;margin:0;min-width:0}
+.set-shot:nth-child(5n+1){grid-column:1/span 7}
+.set-shot:nth-child(5n+2){grid-column:8/span 5;margin-top:clamp(4rem,9vw,9rem)}
+.set-shot:nth-child(5n+3){grid-column:2/span 5}
+.set-shot:nth-child(5n+4){grid-column:7/span 6}
+.set-shot:nth-child(5n+5){grid-column:4/span 6}
+.set-shot img{display:block;width:100%;height:auto}
+
+@media(max-width:760px){
+  .project__link h3:after{margin-left:.4rem}
+  .portfolio-hero,.photo-set{padding-left:max(var(--pad),env(safe-area-inset-left));padding-right:max(var(--pad),env(safe-area-inset-right))}
+  .portfolio-hero h1{font-size:clamp(3rem,15vw,4.8rem);line-height:.78;max-width:100%}
+  .set-heading h2{font-size:clamp(1.7rem,8vw,2.5rem)}
+  .set-gallery{grid-template-columns:minmax(0,1fr)}
+  .set-shot,.set-shot:nth-child(n){grid-column:auto;margin-top:0}
+}
+
+@media(prefers-reduced-motion:reduce){.project__link h3:after{transition:none}.project__link:hover h3:after{transform:none}}

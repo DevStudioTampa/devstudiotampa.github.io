@@ -7,12 +7,17 @@ if (!html.includes('href="/automotive"')) throw new Error('Automotive project li
 if (!html.includes('href="/commercial"')) throw new Error('Commercial project link is missing');
 if (html.includes('IMAGE PENDING') || html.includes('image placement pending')) throw new Error('Placeholder copy remains in the public site');
 const mobileHeroRequired = [
-  '<span class="hero__mobile-copy">TAMPA, FLORIDA<br>PARTNERSHIPS + ONE-TIME PROJECTS</span>',
   '<span class="hero__mobile-copy">MAKE<br>SIGNIFICANCE<br></span><em>VISIBLE.</em>',
-  '<span class="hero__mobile-copy">CARS, GARAGES, EVENTS + BRANDS</span>'
+  '<span class="hero__mobile-copy">TAMPA, FLORIDA<br>PARTNERSHIPS + ONE-TIME PROJECTS</span>'
 ];
 for (const token of mobileHeroRequired) if (!html.includes(token)) throw new Error(`Missing mobile hero markup: ${token}`);
-for (const token of ['bottom:-.82em', '.hero__desktop-copy{display:none}', '.hero__mobile-copy{display:inline}']) {
+if (html.includes('<span class="hero__mobile-copy">CARS, GARAGES, EVENTS + BRANDS</span>')) throw new Error('Removed mobile services label is still present');
+const mobilePartnershipLabel = '<span class="hero__mobile-copy">TAMPA, FLORIDA<br>PARTNERSHIPS + ONE-TIME PROJECTS</span>';
+const heroTitleMarkup = html.match(/<div class="hero__title">([\s\S]*?)<div class="hero__footer">/)?.[1] ?? '';
+const heroFooterMarkup = html.match(/<p class="location">([\s\S]*?)<\/p>/)?.[1] ?? '';
+if (heroTitleMarkup.includes(mobilePartnershipLabel)) throw new Error('Mobile partnership label must sit below the hero description');
+if (!heroFooterMarkup.includes(mobilePartnershipLabel)) throw new Error('Mobile partnership label is missing below the hero description');
+for (const token of ['left:0;right:0', 'bottom:-.82em', 'font-size:clamp(2.75rem,14vw,4rem)', '.hero__frame p{display:none}', '.hero__title>p{display:none}', '.hero__desktop-copy{display:none}', '.hero__mobile-copy{display:inline}', '.hero__footer .location{font-weight:500;letter-spacing:.11em}']) {
   if (!styles.includes(token)) throw new Error(`Missing mobile hero layout rule: ${token}`);
 }
 const ids = [...html.matchAll(/\sid="([^"]+)"/g)].map((match) => match[1]);

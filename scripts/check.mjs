@@ -4,6 +4,7 @@ const styles = await readFile('public/styles.css', 'utf8');
 const required = ['<title>', '<main', 'id="work"', 'id="services"', 'id="studio"', 'id="contact"', 'id="inquiry-form"', 'action="/api/inquiry"', '__TURNSTILE_SITE_KEY__', 'mailto:devstudiotampa@gmail.com', 'application/ld+json', 'data-hero-image', 'loading="lazy"'];
 for (const token of required) if (!html.includes(token)) throw new Error(`Missing required markup: ${token}`);
 if (!html.includes('href="/automotive"')) throw new Error('Automotive project link is missing');
+if (!html.includes('href="/events"')) throw new Error('Events project link is missing');
 if (!html.includes('href="/commercial"')) throw new Error('Commercial project link is missing');
 if (html.includes('IMAGE PENDING') || html.includes('image placement pending')) throw new Error('Placeholder copy remains in the public site');
 const mobileHeroRequired = [
@@ -46,8 +47,23 @@ if (commercialSets.length !== 1) throw new Error(`Expected 1 commercial photo se
 const commercialImageCount = (commercialSets[0][1].match(/<figure\b/g) || []).length;
 if (commercialImageCount < 1 || commercialImageCount > 10) throw new Error(`Commercial photo set must show 1 to 10 images: ${commercialImageCount}`);
 
+const eventsHtml = await readFile('public/events.html', 'utf8');
+const eventsRequired = ['<title>', '<main', 'id="portfolio-title"', '>TME</h2>', '>PROVISIONS RED CARPET</h2>', '>CONSTRUCTION SERVICES INC.</h2>', 'data-collection', 'data-photo-set', 'class="set-gallery"', '<footer>'];
+for (const token of eventsRequired) if (!eventsHtml.includes(token)) throw new Error(`Missing events markup: ${token}`);
+const eventsIds = [...eventsHtml.matchAll(/\sid="([^"]+)"/g)].map((match) => match[1]);
+if (new Set(eventsIds).size !== eventsIds.length) throw new Error('Duplicate events HTML id found');
+const eventSets = [...eventsHtml.matchAll(/<article class="photo-set"[^>]*data-photo-set[^>]*>([\s\S]*?)<\/article>/g)];
+if (eventSets.length !== 3) throw new Error(`Expected 3 event photo sets, found ${eventSets.length}`);
+const expectedEventSetCounts = [5, 5, 8];
+for (const [index, [, photoSet]] of eventSets.entries()) {
+  const imageCount = (photoSet.match(/<figure\b/g) || []).length;
+  if (imageCount !== expectedEventSetCounts[index]) throw new Error(`Event photo set ${index + 1} must show exactly ${expectedEventSetCounts[index]} images: ${imageCount}`);
+}
+const eventImageCount = (eventsHtml.match(/<figure\b/g) || []).length;
+if (eventImageCount !== 18) throw new Error(`Events collection must show exactly 18 images: ${eventImageCount}`);
+
 const shopUrl = 'https://fineartamerica.com/profiles/theodore-castro';
-for (const [pageName, pageHtml] of [['home', html], ['automotive', automotiveHtml], ['commercial', commercialHtml]]) {
+for (const [pageName, pageHtml] of [['home', html], ['automotive', automotiveHtml], ['events', eventsHtml], ['commercial', commercialHtml]]) {
   const nav = pageHtml.match(/<nav id="site-nav"[\s\S]*?<\/nav>/)?.[0] ?? '';
   const servicesPosition = nav.indexOf('>Services</a>');
   const shopPosition = nav.indexOf(`href="${shopUrl}"`);
@@ -77,9 +93,31 @@ const commercialStems = [
   'ferrari-showroom-pair',
   'ferrari-showroom-depth'
 ];
+const eventStems = [
+  'tme-pool-hosts',
+  'tme-event-team',
+  'tme-pool-crowd',
+  'tme-pool-guests',
+  'tme-poolside-performance',
+  'provisions-red-carpet-arrival',
+  'provisions-venue-lineup',
+  'provisions-step-and-repeat',
+  'provisions-motor-enclave-sunset',
+  'provisions-porsche-livery',
+  'csi-driver-grid',
+  'csi-driver-preparation',
+  'csi-driver-window',
+  'csi-white-porsche-grid',
+  'csi-porsche-on-track',
+  'csi-track-sign',
+  'csi-driver-cockpit',
+  'csi-porsche-bmw-track'
+];
 if (commercialImageCount !== commercialStems.length) throw new Error(`Commercial collection is missing an image: expected ${commercialStems.length}, found ${commercialImageCount}`);
-const staticFiles = ['public/styles.css','public/script.js','public/robots.txt','public/sitemap.xml','public/automotive.html','public/commercial.html','api/inquiry.mjs','supabase/migrations/20260808_public_inquiries.sql','vercel.json','public/images/hero-drift-2200.webp','public/images/automotive-corvette-1440.webp','public/images/event-drift-1440.webp','public/images/commercial-showroom-1440.webp','public/images/dst-og.jpg'];
+if (eventImageCount !== eventStems.length) throw new Error(`Events collection is missing an image: expected ${eventStems.length}, found ${eventImageCount}`);
+const staticFiles = ['public/styles.css','public/script.js','public/robots.txt','public/sitemap.xml','public/automotive.html','public/events.html','public/commercial.html','api/inquiry.mjs','supabase/migrations/20260808_public_inquiries.sql','vercel.json','public/images/hero-drift-2200.webp','public/images/automotive-corvette-1440.webp','public/images/event-drift-1440.webp','public/images/commercial-showroom-1440.webp','public/images/dst-og.jpg'];
 for (const stem of automotiveStems) staticFiles.push(`public/images/automotive/${stem}-1440.jpg`);
+for (const stem of eventStems) staticFiles.push(`public/images/events/${stem}-1440.jpg`);
 for (const stem of commercialStems) staticFiles.push(`public/images/commercial/${stem}-1440.jpg`);
 for (const file of staticFiles) await access(file);
-console.log(`Checked ${required.length + automotiveRequired.length + commercialRequired.length} content requirements, ${ids.length + automotiveIds.length + commercialIds.length} unique IDs, 2 automotive sets, 1 commercial set, 17 collection images, and static assets.`);
+console.log(`Checked ${required.length + automotiveRequired.length + eventsRequired.length + commercialRequired.length} content requirements, ${ids.length + automotiveIds.length + eventsIds.length + commercialIds.length} unique IDs, 2 automotive sets, 3 event sets, 1 commercial set, 35 collection images, and static assets.`);

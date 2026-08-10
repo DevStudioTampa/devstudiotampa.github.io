@@ -1,10 +1,20 @@
 import { readFile, access } from 'node:fs/promises';
 const html = await readFile('public/index.html', 'utf8');
+const styles = await readFile('public/styles.css', 'utf8');
 const required = ['<title>', '<main', 'id="work"', 'id="services"', 'id="studio"', 'id="contact"', 'id="inquiry-form"', 'action="/api/inquiry"', '__TURNSTILE_SITE_KEY__', 'mailto:devstudiotampa@gmail.com', 'application/ld+json', 'data-hero-image', 'loading="lazy"'];
 for (const token of required) if (!html.includes(token)) throw new Error(`Missing required markup: ${token}`);
 if (!html.includes('href="/automotive"')) throw new Error('Automotive project link is missing');
 if (!html.includes('href="/commercial"')) throw new Error('Commercial project link is missing');
 if (html.includes('IMAGE PENDING') || html.includes('image placement pending')) throw new Error('Placeholder copy remains in the public site');
+const mobileHeroRequired = [
+  '<span class="hero__mobile-copy">TAMPA, FLORIDA<br>PARTNERSHIPS + ONE-TIME PROJECTS</span>',
+  '<span class="hero__mobile-copy">MAKE<br>SIGNIFICANCE<br></span><em>VISIBLE.</em>',
+  '<span class="hero__mobile-copy">CARS, GARAGES, EVENTS + BRANDS</span>'
+];
+for (const token of mobileHeroRequired) if (!html.includes(token)) throw new Error(`Missing mobile hero markup: ${token}`);
+for (const token of ['bottom:-.82em', '.hero__desktop-copy{display:none}', '.hero__mobile-copy{display:inline}']) {
+  if (!styles.includes(token)) throw new Error(`Missing mobile hero layout rule: ${token}`);
+}
 const ids = [...html.matchAll(/\sid="([^"]+)"/g)].map((match) => match[1]);
 if (new Set(ids).size !== ids.length) throw new Error('Duplicate HTML id found');
 

@@ -48,7 +48,7 @@ const commercialImageCount = (commercialSets[0][1].match(/<figure\b/g) || []).le
 if (commercialImageCount < 1 || commercialImageCount > 10) throw new Error(`Commercial photo set must show 1 to 10 images: ${commercialImageCount}`);
 
 const eventsHtml = await readFile('public/events.html', 'utf8');
-const eventsRequired = ['<title>', '<main', 'id="portfolio-title"', '>TME</h2>', '>PROVISIONS RED CARPET</h2>', '>CONSTRUCTION SERVICES INC.</h2>', 'data-collection', 'data-photo-set', 'class="set-gallery"', '<footer>'];
+const eventsRequired = ['<title>', '<main', 'id="portfolio-title"', '>The Motor Enclave</h2>', '>PROVISIONS RED CARPET</h2>', '>CONSTRUCTION SERVICES INC.</h2>', 'data-collection', 'data-photo-set', 'class="set-gallery"', '<footer>'];
 for (const token of eventsRequired) if (!eventsHtml.includes(token)) throw new Error(`Missing events markup: ${token}`);
 const eventsIds = [...eventsHtml.matchAll(/\sid="([^"]+)"/g)].map((match) => match[1]);
 if (new Set(eventsIds).size !== eventsIds.length) throw new Error('Duplicate events HTML id found');

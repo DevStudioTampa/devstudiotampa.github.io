@@ -31,6 +31,16 @@ if (commercialSets.length !== 1) throw new Error(`Expected 1 commercial photo se
 const commercialImageCount = (commercialSets[0][1].match(/<figure\b/g) || []).length;
 if (commercialImageCount < 1 || commercialImageCount > 10) throw new Error(`Commercial photo set must show 1 to 10 images: ${commercialImageCount}`);
 
+const shopUrl = 'https://fineartamerica.com/profiles/theodore-castro';
+for (const [pageName, pageHtml] of [['home', html], ['automotive', automotiveHtml], ['commercial', commercialHtml]]) {
+  const nav = pageHtml.match(/<nav id="site-nav"[\s\S]*?<\/nav>/)?.[0] ?? '';
+  const servicesPosition = nav.indexOf('>Services</a>');
+  const shopPosition = nav.indexOf(`href="${shopUrl}"`);
+  const aboutPosition = nav.indexOf('>About</a>');
+  if (shopPosition < 0) throw new Error(`Shop link is missing from ${pageName} navigation`);
+  if (!(servicesPosition < shopPosition && shopPosition < aboutPosition)) throw new Error(`Shop link must sit between Services and About on ${pageName}`);
+}
+
 const automotiveStems = [
   'portrait-porsche-front',
   'portrait-porsche-headlight',

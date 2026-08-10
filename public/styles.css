@@ -75,3 +75,13 @@ img,picture,video,svg{max-width:100%}
 }
 
 @media(prefers-reduced-motion:reduce){.project__link h3:after{transition:none}.project__link:hover h3:after{transform:none}}
+
+/* Mobile hero title overlay */
+@media(max-width:760px){
+  .hero__frame,.hero__title{grid-column:1;grid-row:2}
+  .hero__frame:before{background:linear-gradient(0deg,rgba(17,16,14,.82) 0%,rgba(17,16,14,.48) 46%,transparent 76%)}
+  .hero__title{align-self:end;z-index:4;padding:1.25rem .75rem 3.5rem;color:var(--cream);pointer-events:none}
+  .hero__title>p{border-top-color:rgba(238,233,223,.78);text-shadow:0 1px 8px rgba(0,0,0,.72)}
+  .hero h1{margin:.35em 0 0;text-shadow:0 2px 14px rgba(0,0,0,.58)}
+  .hero__footer{grid-row:3}
+}

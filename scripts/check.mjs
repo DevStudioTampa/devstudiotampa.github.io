@@ -12,7 +12,7 @@ const mobileHeroRequired = [
 ];
 for (const token of mobileHeroRequired) if (!html.includes(token)) throw new Error(`Missing mobile hero markup: ${token}`);
 if (html.includes('<span class="hero__mobile-copy">TAMPA, FLORIDA<br>PARTNERSHIPS + ONE-TIME PROJECTS</span>')) throw new Error('Removed mobile partnership label is still present');
-for (const token of ['bottom:-.82em', '.hero__frame p{display:none}', 'border-top:0', '.hero__desktop-copy{display:none}', '.hero__mobile-copy{display:inline}', '.hero__footer .location{display:none}']) {
+for (const token of ['left:0;right:0', 'bottom:-.82em', 'font-size:clamp(2.75rem,14vw,4rem)', '.hero__frame p{display:none}', 'border-top:0', '.hero__desktop-copy{display:none}', '.hero__mobile-copy{display:inline}', '.hero__footer .location{display:none}']) {
   if (!styles.includes(token)) throw new Error(`Missing mobile hero layout rule: ${token}`);
 }
 const ids = [...html.matchAll(/\sid="([^"]+)"/g)].map((match) => match[1]);

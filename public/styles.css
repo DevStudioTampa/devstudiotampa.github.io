@@ -90,3 +90,8 @@ img,picture,video,svg{max-width:100%}
   .hero__footer{grid-row:3;padding-top:clamp(3.9rem,17vw,5.25rem)}
   .hero__footer .location{font-weight:500;letter-spacing:.11em}
 }
+
+/* Keep keyboard targets visible and identify server-rejected inquiry fields. */
+.reveal-ready [data-reveal]:focus-within{opacity:1;transform:none}
+.form-field [aria-invalid="true"]{border-color:#a12617;outline:2px solid #a12617;outline-offset:2px}
+#verification-status:empty{display:none}

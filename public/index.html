@@ -22,8 +22,8 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap">
   <link rel="stylesheet" href="/styles.css">
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"ProfessionalService","name":"Developer Studio Tampa","url":"https://devstudiotampa.com/","email":"devstudiotampa@gmail.com","description":"Automotive, event, and commercial photography and motion for ongoing partnerships and one-time projects in Tampa, Florida.","areaServed":"Tampa, Florida","address":{"@type":"PostalAddress","addressLocality":"Tampa","addressRegion":"FL","addressCountry":"US"}}</script>
-  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" defer></script>
   <script src="/script.js" defer></script>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -95,13 +95,13 @@
         <li data-reveal><span>01</span><h3>Automotive</h3><p>From individual builds and exotics to motorsport and commercial work, I photograph cars through design, detail, motion, and environment, giving each vehicle a distinct visual presence.</p></li>
         <li data-reveal><span>02</span><h3>Events + Venues</h3><p>Coverage focuses on the atmosphere of the event as a whole, from the people and energy to the location, surroundings, and standout vehicles that give each gathering its identity.</p></li>
         <li data-reveal><span>03</span><h3>Commercial Libraries</h3><p>I capture the full brand experience, from people and atmosphere to products, spaces, and details, creating a versatile library of assets for immediate and future use.</p></li>
-        <li data-reveal><span>04</span><h3>Ongoing Partnerships</h3><p>Today, DST is focused on building recurring relationships across automotive, events, and commercial work. Long term, the goal is to grow those relationships into a broader studio spanning commercial production, real estate, merchandise, and other services under one scalable brand.</p></li>
+        <li data-reveal><span>04</span><h3>Ongoing Partnerships</h3><p>Consistent photography and content for automotive businesses, events, and commercial brands. I work with partners over time to understand their goals and build an image library that grows with their business.</p></li>
       </ol>
     </section>
 
     <section class="studio section" id="studio" aria-labelledby="studio-title">
       <div class="studio__marker" data-reveal>DST<br><span>27.95° N<br>82.46° W</span></div>
-      <div class="studio__copy" data-reveal><p class="eyebrow">03 / ABOUT</p><h2 id="studio-title">DEVELOPER STUDIO<br><em>TAMPA.</em></h2><p class="lede">Developer Studio Tampa was founded by Theodore Castro, a photographer and filmmaker based in Tampa, Florida.</p><p>Each image is made to capture attention and vividly set the tone being communicated.</p><p>Light, atmosphere, and the story subjects tell with their presence are what we curate.</p><p>DST’s long-term direction is to build lasting partnerships beyond individual commissions, with future expansion into property and investment.</p><p>Available for ongoing production partnerships and one-time projects.</p></div>
+      <div class="studio__copy" data-reveal><p class="eyebrow">03 / ABOUT</p><h2 id="studio-title">DEVELOPER STUDIO<br><em>TAMPA.</em></h2><p class="lede">Founded by Theodore Castro in Tampa, Florida, Developer Studio Tampa is an independent company building creative work, digital products, and businesses with lasting value.</p><p>Photography and event coverage are its creative arm, with a focus on automotive, people, and the spaces they bring to life.</p><p>Alongside client work, DST is developing its own digital tools and platforms that solve everyday problems and help people make more informed decisions.</p><p>The goal is to grow a family of businesses under one parent company, built for long-term ownership and a legacy that can carry forward for generations.</p><p>Available for ongoing production partnerships and one-time projects.</p></div>
     </section>
 
     <section class="contact section" id="contact" aria-labelledby="contact-title">
@@ -120,7 +120,7 @@
         <div class="form-grid">
           <div class="form-field">
             <label for="name">Full name <span aria-hidden="true">*</span></label>
-            <input id="name" name="name" type="text" autocomplete="name" maxlength="100" required>
+            <input id="name" name="name" type="text" autocomplete="name" minlength="2" maxlength="100" required>
           </div>
           <div class="form-field">
             <label for="email">Email <span aria-hidden="true">*</span></label>
@@ -182,9 +182,10 @@
         </div>
 
         <div class="form-footer">
-          <div class="cf-turnstile" data-sitekey="__TURNSTILE_SITE_KEY__" data-theme="light" data-size="flexible"></div>
+          <div class="cf-turnstile" data-sitekey="__TURNSTILE_SITE_KEY__" data-theme="light" data-size="flexible" data-error-callback="onInquiryVerificationError" data-expired-callback="onInquiryVerificationExpired" data-timeout-callback="onInquiryVerificationError" data-callback="onInquiryVerified"></div>
           <button class="button inquiry-submit" type="submit">Send inquiry</button>
         </div>
+        <p class="field-help" id="verification-status" role="status" aria-live="polite"></p>
         <p class="form-privacy">Your information is used only to respond to this inquiry. It is not added to a marketing list.</p>
         <p class="form-status" id="form-status" role="status" aria-live="polite" tabindex="-1"></p>
         <noscript><p class="form-status form-status--error">JavaScript is required for this form. Email <a href="mailto:devstudiotampa@gmail.com?subject=Project%20inquiry">devstudiotampa@gmail.com</a> instead.</p></noscript>

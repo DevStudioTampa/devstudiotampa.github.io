@@ -31,7 +31,7 @@ html{scroll-padding-top:120px}
 .digital-section h2{font-size:clamp(2.8rem,4.6vw,5.5rem)}
 .product-card{background:#fff;color:#000;border-radius:32px;min-height:440px;padding:clamp(2rem,4vw,4rem);display:flex;flex-direction:column;justify-content:center;will-change:transform}
 .product-overline{font:400 .75rem/1.5 'DM Mono',monospace;letter-spacing:.1em;color:#606060}
-.product-card>img{width:100%;height:auto;margin:3rem 0 1rem}.product-tagline{font-size:1rem;margin-bottom:3rem}.product-principles{border-top:1px solid #d5d5d5;padding-top:1.4rem;display:flex;justify-content:space-between;gap:1rem;font-size:.875rem;color:#606060}
+.product-card>img{width:100%;height:auto;margin:3rem 0}.product-principles{border-top:1px solid #d5d5d5;padding-top:1.4rem;display:flex;justify-content:space-between;gap:1rem;font-size:.875rem;color:#606060}
 .ambition-section{display:grid;grid-template-columns:1.2fr 1fr;align-content:center;align-items:start;gap:clamp(2rem,5vw,6rem)}
 .ambition-image{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover;object-position:50% 45%;opacity:.33}
 .ambition-section:before{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,#0006,#000c)}

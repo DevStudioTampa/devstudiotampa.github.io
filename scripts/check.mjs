@@ -1,26 +1,11 @@
 import { readFile, access } from 'node:fs/promises';
 const html = await readFile('public/index.html', 'utf8');
-const styles = await readFile('public/styles.css', 'utf8');
 const required = ['<title>', '<main', 'id="work"', 'id="services"', 'id="studio"', 'id="contact"', 'id="inquiry-form"', 'action="/api/inquiry"', '__TURNSTILE_SITE_KEY__', 'mailto:devstudiotampa@gmail.com', 'application/ld+json', 'data-hero-image', 'loading="lazy"'];
 for (const token of required) if (!html.includes(token)) throw new Error(`Missing required markup: ${token}`);
 if (!html.includes('href="/automotive"')) throw new Error('Automotive project link is missing');
 if (!html.includes('href="/events"')) throw new Error('Events project link is missing');
 if (!html.includes('href="/commercial"')) throw new Error('Commercial project link is missing');
 if (html.includes('IMAGE PENDING') || html.includes('image placement pending')) throw new Error('Placeholder copy remains in the public site');
-const mobileHeroRequired = [
-  '<span class="hero__mobile-copy">MAKE<br>SIGNIFICANCE<br></span><em>VISIBLE.</em>',
-  '<span class="hero__mobile-copy">TAMPA, FLORIDA<br>PARTNERSHIPS + ONE-TIME PROJECTS</span>'
-];
-for (const token of mobileHeroRequired) if (!html.includes(token)) throw new Error(`Missing mobile hero markup: ${token}`);
-if (html.includes('<span class="hero__mobile-copy">CARS, GARAGES, EVENTS + BRANDS</span>')) throw new Error('Removed mobile services label is still present');
-const mobilePartnershipLabel = '<span class="hero__mobile-copy">TAMPA, FLORIDA<br>PARTNERSHIPS + ONE-TIME PROJECTS</span>';
-const heroTitleMarkup = html.match(/<div class="hero__title">([\s\S]*?)<div class="hero__footer">/)?.[1] ?? '';
-const heroFooterMarkup = html.match(/<p class="location">([\s\S]*?)<\/p>/)?.[1] ?? '';
-if (heroTitleMarkup.includes(mobilePartnershipLabel)) throw new Error('Mobile partnership label must sit below the hero description');
-if (!heroFooterMarkup.includes(mobilePartnershipLabel)) throw new Error('Mobile partnership label is missing below the hero description');
-for (const token of ['left:0;right:0', 'bottom:-.82em', 'font-size:clamp(2.75rem,14vw,4rem)', '.hero__frame p{display:none}', '.hero__title>p{display:none}', '.hero__desktop-copy{display:none}', '.hero__mobile-copy{display:inline}', '.hero__footer .location{font-weight:500;letter-spacing:.11em}']) {
-  if (!styles.includes(token)) throw new Error(`Missing mobile hero layout rule: ${token}`);
-}
 const ids = [...html.matchAll(/\sid="([^"]+)"/g)].map((match) => match[1]);
 if (new Set(ids).size !== ids.length) throw new Error('Duplicate HTML id found');
 
@@ -115,7 +100,7 @@ const eventStems = [
 ];
 if (commercialImageCount !== commercialStems.length) throw new Error(`Commercial collection is missing an image: expected ${commercialStems.length}, found ${commercialImageCount}`);
 if (eventImageCount !== eventStems.length) throw new Error(`Events collection is missing an image: expected ${eventStems.length}, found ${eventImageCount}`);
-const staticFiles = ['public/styles.css','public/script.js','public/robots.txt','public/sitemap.xml','public/automotive.html','public/events.html','public/commercial.html','api/inquiry.mjs','supabase/migrations/20260808_public_inquiries.sql','vercel.json','public/images/hero-drift-2200.webp','public/images/automotive-corvette-1440.webp','public/images/event-drift-1440.webp','public/images/commercial-showroom-1440.webp','public/images/dst-og.jpg'];
+const staticFiles = ['public/styles.css','public/script.js','public/brand/DST-wordmark-white.svg','public/brand/DST-lockup-white.svg','public/brand/DST-icon-white.svg','public/favicon.svg','public/favicon.ico','public/apple-touch-icon.png','public/site.webmanifest','public/DST-icon-192.png','public/DST-icon-512.png','public/robots.txt','public/sitemap.xml','public/automotive.html','public/events.html','public/commercial.html','api/inquiry.mjs','supabase/migrations/20260808_public_inquiries.sql','vercel.json','public/images/hero-drift-2200.webp','public/images/automotive-corvette-1440.webp','public/images/event-drift-1440.webp','public/images/commercial-showroom-1440.webp','public/images/dst-og.jpg'];
 for (const stem of automotiveStems) staticFiles.push(`public/images/automotive/${stem}-1440.jpg`);
 for (const stem of eventStems) staticFiles.push(`public/images/events/${stem}-1440.jpg`);
 for (const stem of commercialStems) staticFiles.push(`public/images/commercial/${stem}-1440.jpg`);

@@ -107,6 +107,14 @@
       schedule();
       return;
     }
+    let previousPosition = null;
+    if (mobile && mobileChapters.length && scrollY >= story.offsetTop && scrollY <= story.offsetTop + story.offsetHeight - stage.clientHeight) {
+      const distance = scrollY - story.offsetTop;
+      let index = 0;
+      mobileChapters.forEach((chapter, i) => { if (distance >= chapter.start) index = i; });
+      const chapter = mobileChapters[index];
+      previousPosition = { index, fraction: (distance - chapter.start) / (chapter.hold + chapter.transition) };
+    }
     scenes.forEach(scene => { scene.removeAttribute('style'); scene.inert = false; scene.removeAttribute('aria-hidden'); });
     [film, heroImage, heroCopy, product, ...albums].forEach(element => element?.removeAttribute('style'));
     root.classList.remove('immersion-mobile');
@@ -136,6 +144,10 @@
       });
       const last = mobileChapters[mobileChapters.length - 1];
       story.style.height = `${last.start + last.hold + height}px`;
+      if (previousPosition) {
+        const chapter = mobileChapters[previousPosition.index];
+        scrollTo({ top: story.offsetTop + chapter.start + previousPosition.fraction * (chapter.hold + chapter.transition), behavior: 'instant' });
+      }
     }
     layoutWidth = root.clientWidth;
     layoutHeight = stage?.clientHeight || 0;

@@ -50,11 +50,11 @@ if (eventImageCount !== 18) throw new Error(`Events collection must show exactly
 const shopUrl = 'https://fineartamerica.com/profiles/theodore-castro';
 for (const [pageName, pageHtml] of [['home', html], ['automotive', automotiveHtml], ['events', eventsHtml], ['commercial', commercialHtml]]) {
   const nav = pageHtml.match(/<nav id="site-nav"[\s\S]*?<\/nav>/)?.[0] ?? '';
-  const servicesPosition = nav.indexOf('>Services</a>');
+  const digitalPosition = nav.indexOf('>Digital</a>');
   const shopPosition = nav.indexOf(`href="${shopUrl}"`);
   const aboutPosition = nav.indexOf('>About</a>');
   if (shopPosition < 0) throw new Error(`Shop link is missing from ${pageName} navigation`);
-  if (!(servicesPosition < shopPosition && shopPosition < aboutPosition)) throw new Error(`Shop link must sit between Services and About on ${pageName}`);
+  if (!(digitalPosition >= 0 && digitalPosition < shopPosition && shopPosition < aboutPosition)) throw new Error(`Shop link must sit between Digital and About on ${pageName}`);
 }
 
 const automotiveStems = [

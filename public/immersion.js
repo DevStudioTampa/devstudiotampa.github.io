@@ -57,7 +57,8 @@
   };
 
   const destination = target => {
-    const index = scenes.indexOf(target);
+    const scene = target.closest('.story-scene');
+    const index = scenes.indexOf(scene);
     if (mobile && index >= 0) return geometry.top + mobileChapters[index].start;
     if (pinned && index >= 0) return story.offsetTop + index / (scenes.length - 1) * (story.offsetHeight - stage.offsetHeight);
     return Math.max(0, target.getBoundingClientRect().top + scrollY - 110);
@@ -81,7 +82,7 @@
         const leave = index === scenes.length - 1 ? 0 : ease((local - chapter.hold) / chapter.transition);
         const alpha = enter * (1 - leave);
         const travel = clamp(local, 0, chapter.travel);
-        renderMobileScene(scene, index, alpha, `translate3d(0,${-travel + (1 - enter) * 24 - leave * 16}px,0)`);
+        renderMobileScene(scene, index, alpha, `translate3d(0,${-travel + (1 - enter) * 16 - leave * 10}px,0)`);
         if (alpha > .5) current = scene;
       });
       const opening = clamp(distance / mobileChapters[0].hold);
@@ -169,7 +170,7 @@
       let start = 0;
       mobileChapters = scenes.map(scene => {
         const travel = Math.max(0, scene.scrollHeight - height);
-        const transition = height * .4;
+        const transition = height * .46;
         const hold = travel + height * .12;
         const chapter = { start, travel, hold, transition };
         start += hold + transition;

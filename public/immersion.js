@@ -22,10 +22,43 @@
   let queued = false;
   let pendingFocus = null;
   let focusTimer;
+  let sceneStates = [];
+  let mobileOpening = -1;
+  let activeId;
+  let geometry = { top: 0, range: 1, height: 1, page: 1, sections: [] };
+
+  // Measure after layout changes, never after animation writes in the scroll loop.
+  const measure = () => {
+    const top = story?.offsetTop || 0;
+    const height = stage?.clientHeight || innerHeight;
+    geometry = {
+      top, height,
+      range: Math.max(1, (story?.offsetHeight || height) - height),
+      page: Math.max(1, root.scrollHeight - innerHeight),
+      sections: navigation.map(link => document.getElementById(link.hash.slice(1)))
+        .filter(section => section && !(pinned && scenes.includes(section)))
+        .map(section => ({ section, top: section.getBoundingClientRect().top + scrollY }))
+    };
+  };
+  const renderMobileScene = (scene, index, alpha, transform) => {
+    const opacity = alpha.toFixed(4);
+    const visible = alpha > .005;
+    const interactive = alpha > .5;
+    const previous = sceneStates[index];
+    if (!previous || previous.opacity !== opacity) scene.style.opacity = opacity;
+    if (!previous || previous.visible !== visible) scene.style.visibility = visible ? 'visible' : 'hidden';
+    if (!previous || previous.interactive !== interactive) {
+      scene.style.pointerEvents = interactive ? 'auto' : 'none';
+      scene.inert = !interactive;
+      scene.setAttribute('aria-hidden', String(!interactive));
+    }
+    if (!previous || (visible && previous.transform !== transform)) scene.style.transform = transform;
+    sceneStates[index] = { opacity, visible, interactive, transform: visible ? transform : previous?.transform };
+  };
 
   const destination = target => {
     const index = scenes.indexOf(target);
-    if (mobile && index >= 0) return story.offsetTop + mobileChapters[index].start;
+    if (mobile && index >= 0) return geometry.top + mobileChapters[index].start;
     if (pinned && index >= 0) return story.offsetTop + index / (scenes.length - 1) * (story.offsetHeight - stage.offsetHeight);
     return Math.max(0, target.getBoundingClientRect().top + scrollY - 110);
   };
@@ -40,7 +73,7 @@
     queued = false;
     let current = null;
     if (mobile) {
-      const distance = scrollY - story.offsetTop;
+      const distance = scrollY - geometry.top;
       mobileChapters.forEach((chapter, index) => {
         const scene = scenes[index];
         const local = distance - chapter.start;
@@ -48,18 +81,14 @@
         const leave = index === scenes.length - 1 ? 0 : ease((local - chapter.hold) / chapter.transition);
         const alpha = enter * (1 - leave);
         const travel = clamp(local, 0, chapter.travel);
-        scene.style.opacity = alpha.toFixed(4);
-        scene.style.visibility = alpha > .005 ? 'visible' : 'hidden';
-        scene.style.pointerEvents = alpha > .5 ? 'auto' : 'none';
-        scene.style.transform = `translate3d(0,${-travel + (1 - enter) * 38 - leave * 22}px,0)`;
-        scene.inert = alpha <= .5;
-        scene.setAttribute('aria-hidden', String(alpha <= .5));
+        renderMobileScene(scene, index, alpha, `translate3d(0,${-travel + (1 - enter) * 24 - leave * 16}px,0)`);
         if (alpha > .5) current = scene;
       });
       const opening = clamp(distance / mobileChapters[0].hold);
-      film.style.inset = `${8 * (1 - opening)}px`;
-      film.style.borderRadius = `${22 * (1 - opening)}px`;
-      heroImage.style.transform = `scale(${1 + opening * .09})`;
+      if (opening !== mobileOpening) {
+        heroImage.style.transform = `scale(${1 + opening * .06})`;
+        mobileOpening = opening;
+      }
     } else if (pinned) {
       const phase = clamp((scrollY - story.offsetTop) / (story.offsetHeight - stage.offsetHeight)) * (scenes.length - 1);
       const opening = clamp(phase);
@@ -82,21 +111,22 @@
       albums.forEach((card, i) => { card.style.transform = `translateY(${(1 - ease((phase - .45 - i * .07) / .5)) * (55 + i * 15)}px)`; });
       product.style.transform = `translateY(${(1 - ease((phase - 1.45) / .55)) * 70}px)`;
     }
-    let active = pinned && scrollY < story.offsetTop + story.offsetHeight - stage.offsetHeight + stage.offsetHeight * .55 ? current : null;
+    let active = pinned && scrollY < geometry.top + geometry.range + geometry.height * .55 ? current : null;
     if (!active) {
       let nearest = -Infinity;
-      navigation.forEach(link => {
-        const section = document.getElementById(link.hash.slice(1));
-        if (!section || (pinned && scenes.includes(section))) return;
-        const top = section.getBoundingClientRect().top;
+      geometry.sections.forEach(({ section, top: position }) => {
+        const top = position - scrollY;
         if (top < innerHeight * .4 && top > nearest) { nearest = top; active = section; }
       });
     }
-    navigation.forEach(link => {
-      if (active && link.hash === `#${active.id}`) link.setAttribute('aria-current', 'location');
-      else link.removeAttribute('aria-current');
-    });
-    if (progress) progress.style.transform = `scaleX(${clamp(scrollY / Math.max(1, root.scrollHeight - innerHeight))})`;
+    if (activeId !== (active?.id || null)) {
+      activeId = active?.id || null;
+      navigation.forEach(link => {
+        if (activeId && link.hash === `#${activeId}`) link.setAttribute('aria-current', 'location');
+        else link.removeAttribute('aria-current');
+      });
+    }
+    if (progress) progress.style.transform = `scaleX(${clamp(scrollY / geometry.page)})`;
     if (pendingFocus && Math.abs(scrollY - destination(pendingFocus)) < 8) completeFocus();
   };
   const schedule = () => { if (!queued) { queued = true; requestAnimationFrame(paint); } };
@@ -104,6 +134,7 @@
     // Mobile browser chrome can resize the visual viewport on every swipe.
     // A stable svh stage prevents those events from rebuilding the story.
     if (!force && root.clientWidth === layoutWidth && stage?.clientHeight === layoutHeight) {
+      measure();
       schedule();
       return;
     }
@@ -116,6 +147,8 @@
       previousPosition = { index, fraction: (distance - chapter.start) / (chapter.hold + chapter.transition) };
     }
     scenes.forEach(scene => { scene.removeAttribute('style'); scene.inert = false; scene.removeAttribute('aria-hidden'); });
+    sceneStates = [];
+    mobileOpening = -1;
     [film, heroImage, heroCopy, product, ...albums].forEach(element => element?.removeAttribute('style'));
     root.classList.remove('immersion-mobile');
     story?.style.removeProperty('height');
@@ -136,8 +169,8 @@
       let start = 0;
       mobileChapters = scenes.map(scene => {
         const travel = Math.max(0, scene.scrollHeight - height);
-        const transition = height * .7;
-        const hold = travel + height * .4;
+        const transition = height * .4;
+        const hold = travel + height * .12;
         const chapter = { start, travel, hold, transition };
         start += hold + transition;
         return chapter;
@@ -151,6 +184,7 @@
     }
     layoutWidth = root.clientWidth;
     layoutHeight = stage?.clientHeight || 0;
+    measure();
     schedule();
   };
   const hashTarget = () => {
@@ -189,6 +223,12 @@
   addEventListener('hashchange', () => { const target = hashTarget(); if (pinned && target) scrollTo({ top: destination(target), behavior: 'instant' }); });
   reduce.addEventListener('change', configure);
   roomy.addEventListener('change', configure);
+  if ('ResizeObserver' in window) {
+    new ResizeObserver(() => { measure(); schedule(); }).observe(document.body);
+  } else {
+    addEventListener('load', () => { measure(); schedule(); });
+    document.addEventListener('toggle', () => { measure(); schedule(); }, true);
+  }
   configure();
   document.fonts?.ready.then(() => {
     configure();

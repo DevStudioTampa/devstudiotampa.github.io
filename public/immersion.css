@@ -68,6 +68,8 @@ html:not(.js-ready) .site-header{position:relative;inset:auto;margin:20px 24px}
 .immersion-mobile .immersion-opening{padding-bottom:115px}
 .immersion-mobile .opening-film img{will-change:transform}
 .immersion-mobile .album-card,.immersion-mobile .product-card{will-change:auto}
+.immersion-mobile .site-header{backdrop-filter:none;-webkit-backdrop-filter:none;background:#000f}
+.immersion-mobile .opening-film{inset:8px;border-radius:22px}
 .cf-turnstile{overflow-x:auto}
 @media(max-width:760px){
  .immersion-mobile .opening-copy h1{font-size:clamp(3.2rem,12.5vw,6rem)}

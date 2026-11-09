@@ -56,7 +56,7 @@ for (const [pageName, pageHtml] of [['home', html], ['automotive', automotiveHtm
   const aboutPosition = nav.indexOf('>About</a>');
   if (shopPosition < 0) throw new Error(`Shop link is missing from ${pageName} navigation`);
   if (!nav.includes(`href="${pageName === 'home' ? '#games' : '/#games'}"`)) throw new Error(`Games link is missing from ${pageName} navigation`);
-  if (!(digitalPosition >= 0 && digitalPosition < gamesPosition && gamesPosition < shopPosition && shopPosition < aboutPosition)) throw new Error(`Navigation must order Digital, Games, Shop, and About on ${pageName}`);
+  if (!(gamesPosition >= 0 && gamesPosition < digitalPosition && digitalPosition < shopPosition && shopPosition < aboutPosition)) throw new Error(`Navigation must order Games, Digital, Shop, and About on ${pageName}`);
 }
 
 const automotiveStems = [

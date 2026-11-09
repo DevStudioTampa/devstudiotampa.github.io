@@ -11,7 +11,6 @@
 .game-preview .eyebrow{color:#c7b48c;margin-bottom:1.2rem}
 .game-preview h2{margin:0;font-size:clamp(2.4rem,4.7vw,5rem);font-weight:500;line-height:1.04;letter-spacing:-.055em}
 .game-preview-copy>p:not(.eyebrow){max-width:42ch;line-height:1.7;margin-top:1.35rem;color:#d4d0c4}
-.game-preview ul{display:flex;flex-wrap:wrap;gap:.5rem 1rem;list-style:none;margin:1.3rem 0 0;padding:0;font:400 .75rem/1.5 'DM Mono',monospace}
 .game-preview figure{margin:0}
 .game-preview figure img{display:block;width:100%;height:auto;border:1px solid #ede9db30;border-radius:14px}
 .game-preview figcaption{font:400 .75rem/1.5 'DM Mono',monospace;margin-top:.7rem;color:#c9c5b8}

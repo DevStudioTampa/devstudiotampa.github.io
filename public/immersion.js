@@ -10,6 +10,7 @@
   const heroCopy = document.querySelector('.opening-copy');
   const albums = [...document.querySelectorAll('.album-card')];
   const product = document.querySelector('.product-card');
+  const productSceneIndex = scenes.indexOf(product?.closest('.story-scene'));
   const progress = document.querySelector('.reading-progress');
   const reduce = matchMedia('(prefers-reduced-motion: reduce)');
   const roomy = matchMedia('(min-width: 1000px) and (min-height: 700px)');
@@ -112,7 +113,7 @@
         if (alpha > .5) current = scene;
       });
       albums.forEach((card, i) => { card.style.transform = `translateY(${(1 - ease((phase - .45 - i * .07) / .5)) * (55 + i * 15)}px)`; });
-      product.style.transform = `translateY(${(1 - ease((phase - 1.45) / .55)) * 70}px)`;
+      product.style.transform = `translateY(${(1 - ease((phase - productSceneIndex + .55) / .55)) * 70}px)`;
     }
     let active = pinned && scrollY < geometry.top + geometry.range + geometry.height * .55 ? current : null;
     if (!active) {

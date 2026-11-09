@@ -3,6 +3,8 @@
   const story = document.querySelector('.immersion-story');
   const stage = document.querySelector('.immersion-stage');
   const scenes = [...document.querySelectorAll('.story-scene')];
+  // Keep each desktop chapter transition at 120svh as the story grows.
+  story?.style.setProperty('--desktop-story-height', `${100 + Math.max(0, scenes.length - 1) * 120}svh`);
   const film = document.querySelector('.opening-film');
   const heroImage = film?.querySelector('img');
   const heroCopy = document.querySelector('.opening-copy');

@@ -1,6 +1,6 @@
 import { readFile, access } from 'node:fs/promises';
 const html = await readFile('public/index.html', 'utf8');
-const required = ['<title>', '<main', 'id="work"', 'id="services"', 'id="studio"', 'id="contact"', 'id="inquiry-form"', 'action="/api/inquiry"', '__TURNSTILE_SITE_KEY__', 'mailto:devstudiotampa@gmail.com', 'application/ld+json', 'data-hero-image', 'loading="lazy"'];
+const required = ['<title>', '<main', 'id="work"', 'id="services"', 'id="games"', 'id="studio"', 'id="contact"', 'id="inquiry-form"', 'action="/api/inquiry"', '__TURNSTILE_SITE_KEY__', 'mailto:devstudiotampa@gmail.com', 'application/ld+json', 'data-hero-image', 'loading="lazy"'];
 for (const token of required) if (!html.includes(token)) throw new Error(`Missing required markup: ${token}`);
 if (!html.includes('href="/automotive"')) throw new Error('Automotive project link is missing');
 if (!html.includes('href="/events"')) throw new Error('Events project link is missing');
@@ -51,10 +51,12 @@ const shopUrl = 'https://fineartamerica.com/profiles/theodore-castro';
 for (const [pageName, pageHtml] of [['home', html], ['automotive', automotiveHtml], ['events', eventsHtml], ['commercial', commercialHtml]]) {
   const nav = pageHtml.match(/<nav id="site-nav"[\s\S]*?<\/nav>/)?.[0] ?? '';
   const digitalPosition = nav.indexOf('>Digital</a>');
+  const gamesPosition = nav.indexOf('>Games</a>');
   const shopPosition = nav.indexOf(`href="${shopUrl}"`);
   const aboutPosition = nav.indexOf('>About</a>');
   if (shopPosition < 0) throw new Error(`Shop link is missing from ${pageName} navigation`);
-  if (!(digitalPosition >= 0 && digitalPosition < shopPosition && shopPosition < aboutPosition)) throw new Error(`Shop link must sit between Digital and About on ${pageName}`);
+  if (!nav.includes(`href="${pageName === 'home' ? '#games' : '/#games'}"`)) throw new Error(`Games link is missing from ${pageName} navigation`);
+  if (!(digitalPosition >= 0 && digitalPosition < gamesPosition && gamesPosition < shopPosition && shopPosition < aboutPosition)) throw new Error(`Navigation must order Digital, Games, Shop, and About on ${pageName}`);
 }
 
 const automotiveStems = [
@@ -104,5 +106,6 @@ const staticFiles = ['public/styles.css','public/script.js','public/brand/DST-wo
 for (const stem of automotiveStems) staticFiles.push(`public/images/automotive/${stem}-1440.jpg`);
 for (const stem of eventStems) staticFiles.push(`public/images/events/${stem}-1440.jpg`);
 for (const stem of commercialStems) staticFiles.push(`public/images/commercial/${stem}-1440.jpg`);
+staticFiles.push('public/brand/forward-edge/wordmark-ivory.svg', 'public/images/forward-edge/city-1600.webp', 'public/images/forward-edge/city-800.webp');
 for (const file of staticFiles) await access(file);
 console.log(`Checked ${required.length + automotiveRequired.length + eventsRequired.length + commercialRequired.length} content requirements, ${ids.length + automotiveIds.length + eventsIds.length + commercialIds.length} unique IDs, 2 automotive sets, 3 event sets, 1 commercial set, 35 collection images, and static assets.`);

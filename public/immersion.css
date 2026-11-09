@@ -40,8 +40,38 @@ html{scroll-padding-top:120px}
 .contact{margin:0 12px;border-radius:32px;background:#fff;color:#000;border:0}.inquiry-form{border-radius:24px;background:#f6f6f6;border:0}.form-field input,.form-field select,.form-field textarea,.choice-row span{border-radius:10px}.contact .eyebrow{color:#606060}
 .portfolio-hero{padding-top:160px}.portfolio-collection{background:#000;color:#fff}.portfolio-collection .set-heading{border-color:#363636}.set-shot img{border-radius:20px}.set-heading h2{font-size:clamp(1.5rem,3vw,3rem)}.portfolio-next{margin:1rem 12px;border:0;background:#fff;color:#000;border-radius:28px}.portfolio-next .eyebrow{color:#606060}.portfolio-next .button{background:#000;color:#fff}.portfolio-next .button:focus-visible{outline-color:#000}
 .reading-progress{position:fixed;left:0;top:0;height:2px;width:100%;background:#fff;transform:scaleX(0);transform-origin:left;z-index:30;pointer-events:none}
+/* Forward Edge uses its original key art and outlined Held Line wordmark. */
+.games-section{display:flex;flex-direction:column;justify-content:center;gap:clamp(2rem,4svh,4rem);color:#ede9db;background:#121716;overflow:hidden}
+.games-art{position:absolute;inset:0;z-index:-2;display:block}
+.games-art img{width:100%;height:100%;object-fit:cover;object-position:62% center}
+.games-section:before{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,#121716eb 0%,#121716bd 35%,#12171618 75%),linear-gradient(0deg,#121716f2,transparent 40%)}
+.games-copy{max-width:640px}
+.games-section .eyebrow{color:#ede9db;margin-bottom:clamp(1.5rem,4svh,3rem)}
+.games-wordmark{display:block;width:clamp(280px,38vw,600px);max-width:100%;height:auto;max-height:32svh;object-fit:contain;object-position:left center}
+.games-tagline{font-size:clamp(1.7rem,3vw,3rem);font-weight:500;letter-spacing:-.045em;line-height:1.15;margin-top:clamp(1.75rem,4svh,3rem)}
+.games-description{max-width:48ch;line-height:1.7;color:#ede9db;margin-top:1.2rem}
+.games-campaign{display:flex;align-items:center;justify-content:space-between;gap:2rem;margin-top:auto;border-top:1px solid #ede9db50;padding-top:1.4rem;font:400 .75rem/1.5 'DM Mono',monospace;letter-spacing:.06em}
+.games-campaign ul{display:flex;flex-wrap:wrap;gap:1rem 2rem;list-style:none;margin:0;padding:0}
+.immersion-active .story-scene.games-section{padding-bottom:40px}
+.immersion-active .games-copy{margin-block:auto}
+@media(max-width:760px){
+ .games-section{gap:2.5rem;min-height:100svh}
+ .games-art img{object-position:68% center}
+ .games-section:before{background:linear-gradient(90deg,#121716db,#12171666),linear-gradient(0deg,#121716f5 0%,#121716aa 35%,transparent 80%)}
+ .games-wordmark{width:100%;max-width:380px;max-height:none}
+ .games-tagline{font-size:clamp(1.7rem,6vw,2.6rem);margin-top:2rem}
+ .games-description{font-size:.9375rem}
+ .games-campaign{display:block;margin-top:0;padding-top:1.2rem}
+ .games-campaign ul{gap:.7rem 1.2rem;margin-top:1rem;font-size:.6875rem}
+}
+@media(min-width:1000px) and (max-height:800px){
+ .immersion-active .games-wordmark{max-height:27svh}
+ .immersion-active .games-section .eyebrow{margin-bottom:1.5rem}
+ .immersion-active .games-tagline{margin-top:1.5rem}
+ .immersion-active .games-description{font-size:.9375rem;margin-top:.8rem}
+}
 /* Desktop holds complete chapters; mobile gives taller chapters scroll travel. */
-.immersion-active .immersion-story{height:460svh}.immersion-active .immersion-stage{position:sticky;top:0;height:100svh}
+.immersion-active .immersion-story{height:var(--desktop-story-height,580svh)}.immersion-active .immersion-stage{position:sticky;top:0;height:100svh}
 .immersion-active .story-scene{position:absolute;inset:0;height:100%;min-height:0;padding-top:120px;padding-bottom:65px;will-change:opacity,transform;visibility:hidden;opacity:0}
 .immersion-active .story-scene:first-child{visibility:visible;opacity:1}
 .immersion-active .opening-copy h1{font-size:clamp(4.2rem,min(8vw,11.5svh),9rem)}

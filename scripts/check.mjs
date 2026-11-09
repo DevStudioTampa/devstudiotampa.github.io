@@ -106,6 +106,6 @@ const staticFiles = ['public/styles.css','public/script.js','public/brand/DST-wo
 for (const stem of automotiveStems) staticFiles.push(`public/images/automotive/${stem}-1440.jpg`);
 for (const stem of eventStems) staticFiles.push(`public/images/events/${stem}-1440.jpg`);
 for (const stem of commercialStems) staticFiles.push(`public/images/commercial/${stem}-1440.jpg`);
-staticFiles.push('public/brand/forward-edge/wordmark-ivory.svg', 'public/brand/forward-edge/microsoft-store.png', 'public/brand/forward-edge/steam.svg', 'public/images/forward-edge/city-1600.webp', 'public/images/forward-edge/city-800.webp');
+staticFiles.push('public/brand/forward-edge/wordmark-ivory.svg', 'public/brand/forward-edge/microsoft-store.png', 'public/brand/forward-edge/steam.svg', 'public/images/forward-edge/command-post-1200.webp', 'public/images/forward-edge/command-post-640.webp', 'public/images/forward-edge/forward-edge-share.jpg');
 for (const file of staticFiles) await access(file);
 console.log(`Checked ${required.length + automotiveRequired.length + eventsRequired.length + commercialRequired.length} content requirements, ${ids.length + automotiveIds.length + eventsIds.length + commercialIds.length} unique IDs, 2 automotive sets, 3 event sets, 1 commercial set, 35 collection images, and static assets.`);

@@ -57,8 +57,6 @@ html{scroll-padding-top:120px}
 .games-platforms img{display:block;width:auto;height:28px;max-width:none}
 .games-detail-link{padding:.35rem 0;gap:.45rem;text-decoration:underline;text-underline-offset:5px}
 .games-attribution{display:block;margin-top:.6rem;max-width:75ch;font-size:.6875rem;line-height:1.5;color:#ede9dbbf}
-.games-campaign{display:flex;align-items:center;justify-content:space-between;gap:2rem;margin-top:auto;border-top:1px solid #ede9db50;padding-top:1.4rem;font:400 .75rem/1.5 'DM Mono',monospace;letter-spacing:.06em}
-.games-campaign ul{display:flex;flex-wrap:wrap;gap:1rem 2rem;list-style:none;margin:0;padding:0}
 .immersion-active .story-scene.games-section{padding-bottom:40px}
 .immersion-active .games-copy{margin-block:auto}
 @media(max-width:760px){
@@ -68,8 +66,6 @@ html{scroll-padding-top:120px}
  .games-wordmark{width:100%;max-width:380px;max-height:none}
  .games-tagline{font-size:clamp(1.7rem,6vw,2.6rem);margin-top:2rem}
  .games-description{font-size:.9375rem}
- .games-campaign{display:block;margin-top:0;padding-top:1.2rem}
- .games-campaign ul{gap:.7rem 1.2rem;margin-top:1rem;font-size:.6875rem}
 }
 @media(min-width:1000px) and (max-height:800px){
  .immersion-active .games-wordmark{max-height:27svh}

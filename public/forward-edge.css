@@ -14,7 +14,16 @@
 .game-preview figure{margin:0}
 .game-preview figure img{display:block;width:100%;height:auto;border:1px solid #ede9db30;border-radius:14px}
 .game-preview figcaption{font:400 .75rem/1.5 'DM Mono',monospace;margin-top:.7rem;color:#c9c5b8}
+.game-overview{padding:clamp(3rem,7vw,7rem) var(--pad);border-top:1px solid #ede9db30;background:#171a16}
+.game-overview-heading .eyebrow{color:#c7b48c;margin-bottom:1.2rem}
+.game-overview h2{max-width:18ch;margin:0;font-size:clamp(2.4rem,4.7vw,5rem);font-weight:500;line-height:1.04;letter-spacing:-.055em}
+.game-overview-heading>p:not(.eyebrow){max-width:56ch;line-height:1.7;margin-top:1.35rem;color:#d4d0c4}
+.game-overview-details{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.6rem clamp(1.4rem,4vw,4rem);margin:2.4rem 0 0}
+.game-overview-details>div{border-top:1px solid #ede9db40;padding-top:1.15rem}
+.game-overview-details dt{font-weight:600}
+.game-overview-details dd{margin:.55rem 0 0;max-width:36ch;line-height:1.65;color:#d4d0c4}
 @media(max-width:800px){
   .game-hero::before{background:linear-gradient(90deg,#121716dc,#1217167d),linear-gradient(0deg,#121716,transparent 60%)}
   .game-preview{grid-template-columns:minmax(0,1fr)}
 }
+@media(max-width:600px){.game-overview-details{grid-template-columns:minmax(0,1fr)}}

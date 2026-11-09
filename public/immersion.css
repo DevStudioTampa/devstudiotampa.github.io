@@ -50,6 +50,12 @@ html{scroll-padding-top:120px}
 .games-wordmark{display:block;width:clamp(280px,38vw,600px);max-width:100%;height:auto;max-height:32svh;object-fit:contain;object-position:left center}
 .games-tagline{font-size:clamp(1.7rem,3vw,3rem);font-weight:500;letter-spacing:-.045em;line-height:1.15;margin-top:clamp(1.75rem,4svh,3rem)}
 .games-description{max-width:48ch;line-height:1.7;color:#ede9db;margin-top:1.2rem}
+.games-release{display:flex;flex-wrap:wrap;align-items:center;gap:.65rem 1.15rem;margin-top:clamp(.9rem,2.25svh,1.65rem)}
+.games-release-status{padding:.45rem .6rem;border:1px solid #ede9db65;border-radius:4px;font:500 .75rem/1.4 'DM Mono',monospace;letter-spacing:.08em;text-transform:uppercase}
+.games-platforms{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem 1.1rem;list-style:none;margin:0;padding:0}
+.games-platforms li{display:flex;align-items:center;gap:.42rem;font-size:.875rem;font-weight:500;white-space:nowrap}
+.games-platforms img{display:block;width:auto;height:28px;max-width:none}
+.games-attribution{display:block;margin-top:.6rem;max-width:75ch;font-size:.6875rem;line-height:1.5;color:#ede9dbbf}
 .games-campaign{display:flex;align-items:center;justify-content:space-between;gap:2rem;margin-top:auto;border-top:1px solid #ede9db50;padding-top:1.4rem;font:400 .75rem/1.5 'DM Mono',monospace;letter-spacing:.06em}
 .games-campaign ul{display:flex;flex-wrap:wrap;gap:1rem 2rem;list-style:none;margin:0;padding:0}
 .immersion-active .story-scene.games-section{padding-bottom:40px}
